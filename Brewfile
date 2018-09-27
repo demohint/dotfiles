@@ -1,84 +1,112 @@
-# Taps
-tap 'caskroom/cask'
-tap 'caskroom/eid'
-tap 'caskroom/fonts'
-tap 'caskroom/versions'
-tap 'homebrew/bundle'
+# install brew taps
+tap "buo/cask-upgrade"
+tap "getantibody/tap"
+tap "heroku/brew"
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/cask-fonts"
+tap "homebrew/cask-versions"
+tap "homebrew/core"
+tap "homebrew/livecheck"
+tap "homebrew/services"
 
-# Install Binaries
-brew 'awscli'
-brew 'bash' # Bash 4
-brew 'bat'
-brew 'coreutils' # Those that come with macOS are outdated
-brew 'git'
-brew 'grep'
-brew 'mackup'
-brew 'mas'
-brew 'pkg-config' # https://github.com/driesvints/dotfiles/issues/20
-brew 'trash'
-brew 'tree'
-brew 'zsh'
-brew 'zsh-completions'
+# install brew formulas
+brew "ack"
+brew "bash-completion"
+brew "brew-cask-completion"
+brew "coreutils"
+brew "ctags"
+brew "ctop"
+brew "diff-so-fancy"
+brew "docker-machine-driver-vultr"
+brew "fdupes"
+brew "ffmpeg"
+brew "findutils"
+brew "fzf"
+brew "gdb"
+brew "git"
+brew "git-extras"
+brew "git-lfs"
+brew "git-secrets"
+brew "glib"
+brew "gnupg"
+brew "python"
+brew "httpie"
+brew "hub"
+brew "node"
+brew "jsonlint"
+brew "lua"
+brew "m-cli"
+brew "mackup"
+brew "mas"
+brew "moreutils"
+brew "pv"
+brew "ruby"
+brew "ssh-copy-id"
+brew "thefuck"
+brew "tree"
+brew "wget"
+brew "yarn"
+brew "zsh"
+brew "getantibody/tap/antibody"
 
-# Development
-brew 'php'
-brew 'mysql'
-brew 'node'
+# install brew cask apps
+cask "appcleaner"
+cask "atom"
+cask "docker"
+cask "dropbox"
+cask "electrum"
+cask "font-anonymous-pro"
+cask "font-fira-code"
+cask "font-fira-mono-for-powerline"
+cask "font-roboto-mono-for-powerline"
+cask "font-source-code-pro-for-powerline"
+cask "font-ubuntu-mono-derivative-powerline"
+cask "github"
+cask "google-backup-and-sync"
+cask "imageoptim"
+cask "iterm2-beta"
+cask "java"
+cask "kap"
+cask "keybase"
+cask "launchrocket"
+cask "now"
+cask "postico"
+cask "postman"
+cask "robo-3t"
+cask "sequel-pro"
+cask "spectacle"
+cask "transmission"
+cask "visual-studio-code"
+cask "vlc-nightly"
 
-# Apps
-cask 'aerial'
-cask 'alfred'
-cask 'caffeine'
-cask 'discord'
-cask 'docker'
-cask 'dropbox'
-cask 'dynamodb-local'
-cask 'eid-be'
-cask 'eid-be-viewer'
-cask 'firefox'
-cask 'google-backup-and-sync'
-cask 'google-chrome'
-cask 'gpgtools'
-cask 'grammarly'
-cask 'insomnia'
-cask 'java'
-cask 'mysqlworkbench'
-cask 'now'
-cask 'phpstorm'
-cask 'quip'
-cask 'sequel-pro'
-cask 'shuttle'
-cask 'slack'
-cask 'sublime-text'
-cask 'torbrowser'
-cask 'tower'
-cask 'transmit'
-cask 'vagrant'
-cask 'virtualbox'
-cask 'virtualbox-extension-pack'
-cask 'vlc'
-
-# Quicklook
-cask 'qlcolorcode'
-cask 'qlmarkdown'
-cask 'quicklook-json'
-cask 'quicklook-csv'
-cask 'qlstephen'
-
-# Fonts
-cask 'font-source-code-pro-for-powerline'
-cask 'font-source-code-pro'
-cask 'font-source-sans-pro'
-cask 'font-source-serif-pro'
-
-# Install Mac App Store apps
-mas '1Password', id: 1333542190
-mas 'Byword', id: 420212497
-mas 'Deckset', id: 847496013
-mas 'Giphy Capture', id: 668208984
-mas 'Sip', id: 507257563
-mas 'Spark', id: 1176895641
-mas 'The Unarchiver', id: 425424353
-mas 'Things', id: 904280696
-mas 'Tweetbot', id: 1384080005
-mas 'WhatsApp', id: 1147396723 
+# install mac store apps
+mas "1Password", id: 443987910
+mas "Bitcoin Ticker", id: 998255317
+mas "Decompressor", id: 1033480833
+mas "Download Shuttle", id: 847809913
+mas "Duplicate Detective", id: 686428787
+mas "feedly", id: 865500966
+mas "ForkLift", id: 412448059
+mas "GIPHY CAPTURE", id: 668208984
+mas "Highland 2", id: 1171820258
+mas "hisuite", id: 1232508288
+mas "Install macOS Mojave", id: 0
+mas "IP Scanner", id: 404167149
+mas "KankanMac", id: 897335960
+mas "Local Cloud", id: 634034866
+mas "MemoryFreer", id: 451682720
+mas "MKPlayer", id: 1335612105
+mas "Monit", id: 1014850245
+mas "Movie Edit-Video Editor Video", id: 974355957
+mas "Remote Desktop - VNC", id: 472995993
+mas "Resizer", id: 411277085
+mas "SmartConverter", id: 447513724
+mas "Spy Cam", id: 438924363
+mas "Telegram", id: 747648890
+mas "Tumblr", id: 929285034
+mas "Turn Off the Lights for Safari", id: 1273998507
+mas "VOX", id: 461369673
+mas "WhatsApp", id: 1147396723
+mas "Xcode", id: 497799835
+mas "虾米音乐", id: 673877994
