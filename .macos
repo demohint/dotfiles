@@ -8,6 +8,61 @@ sudo -v
 # Keep-alive: update existing `sudo` time stamp until `.macos` has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
+sudo scutil --set VooMoon rmbp
+sudo scutil --set VooLocal rmbp
+sudo scutil --set VooHost rmbp
+
+echo "  › Use AirDrop over every interface"
+defaults write com.apple.NetworkBrowser BrowseAllInterfaces 0
+
+echo "  › Show the ~/Library folder"
+chflags nohidden ~/Library
+
+echo "  › Show the /Volumes folder"
+sudo chflags nohidden /Volumes
+
+echo "  › Set a really fast key repeat"
+defaults write NSGlobalDomain KeyRepeat -int 2
+defaults write NSGlobalDomain InitialKeyRepeat -int 15
+
+echo "  › Enable text replacement almost everywhere"
+defaults write -g WebAutomaticTextReplacementEnabled -bool true
+
+echo "  › Turn off keyboard illumination when computer is not used for 5 minutes"
+defaults write com.apple.BezelServices kDimTime -int 300
+
+echo "  › Require password immediately after sleep or screen saver begins"
+defaults write com.apple.screensaver askForPassword -int 1
+defaults write com.apple.screensaver askForPasswordDelay -int 0
+
+echo "  › Always show scrollbars"
+defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
+# Possible values: `WhenScrolling`, `Automatic` and `Always`
+
+echo "  › Disable Dashboard"
+defaults write com.apple.dashboard mcx-disabled -bool false
+
+echo "  › Don't automatically rearrange Spaces based on most recent use"
+defaults write com.apple.dock mru-spaces -bool false
+
+echo "  › Increase the window resize speed for Cocoa applications"
+defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
+
+echo "  › Disable smart quotes and smart dashes as they're annoying when typing code"
+defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+
+echo "  › Disable auto-correct"
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+
+echo "  › Set up trackpad & mouse speed to a reasonable number"
+defaults write -g com.apple.trackpad.scaling 2
+defaults write -g com.apple.mouse.scaling 2.5
+
+echo "  › Avoid the creation of .DS_Store files on network volumes"
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+
+
 ###############################################################################
 # General UI/UX                                                               #
 ###############################################################################
@@ -204,9 +259,14 @@ defaults write com.apple.dock wvous-br-modifier -int 0
 # Safari & WebKit                                                             #
 ###############################################################################
 
-# Privacy: don’t send search queries to Apple
-defaults write com.apple.Safari UniversalSearchEnabled -bool false
-defaults write com.apple.Safari SuppressSearchSuggestions -bool true
+defaults write com.apple.Safari ShowFavoritesBar -bool false
+defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
+defaults write com.apple.Safari IncludeDevelopMenu -bool true
+defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
+defaults write com.apple.Safari "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" -bool true
+defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
+
+defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
 
 ###############################################################################
 # Mail                                                                        #
@@ -284,6 +344,43 @@ defaults write com.apple.ical "first minute of work hours" 540
 
 # Custom DateFormat
 defaults write com.apple.menuextra.clock DateFormat "EEE MMM d  H:mm"
+#############################
+
+echo ""
+echo "› Transmission:"
+echo "  › Use ~/Downloads/Incomplete to store incomplete downloads"
+defaults write org.m0k.transmission UseIncompleteDownloadFolder -bool true
+defaults write org.m0k.transmission IncompleteDownloadFolder -string "$HOME/Downloads/Incomplete"
+
+echo "  › Don't prompt for confirmation before downloading"
+defaults write org.m0k.transmission DownloadAsk -bool false
+
+echo "  › Trash original torrent files"
+defaults write org.m0k.transmission DeleteOriginalTorrent -bool true
+
+echo "  › Hide the donate message"
+defaults write org.m0k.transmission WarningDonate -bool false
+
+echo "  › Hide the legal disclaimer"
+defaults write org.m0k.transmission WarningLegal -bool false
+
+echo "  › Auto-add .torrent files in ~/Downloads"
+defaults write org.m0k.transmission AutoImportDirectory -string "$HOME/Downloads"
+
+echo "  › Auto-resize the window to fit transfers"
+defaults write org.m0k.transmission AutoSize -bool true
+
+echo "  › Auto update to betas"
+defaults write org.m0k.transmission AutoUpdateBeta -bool true
+
+echo "  › Set up the best block list"
+defaults write org.m0k.transmission EncryptionRequire -bool true
+defaults write org.m0k.transmission BlocklistAutoUpdate -bool true
+defaults write org.m0k.transmission BlocklistNew -bool true
+defaults write org.m0k.transmission BlocklistURL -string "http://john.bitsurge.net/public/biglist.p2p.gz"
+
+#############################
+
 
 ###############################################################################
 # Photos                                                                      #
@@ -292,13 +389,38 @@ defaults write com.apple.menuextra.clock DateFormat "EEE MMM d  H:mm"
 # Prevent Photos from opening automatically when devices are plugged in
 defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 
+
+# SSD Tweak
+sudo tmutil disable local
+
+sudo pmset -a hibernatemode 0
+
+sudo rm /private/var/vm/sleepimage
+
+sudo touch /private/var/vm/sleepimage
+
+sudo chflags uchg /private/var/vm/sleepimage
+
+sudo pmset -a sms 0
+
+#############################
+
+echo ""
+echo "› Media:"
+if [ -z "$KEEP_ITUNES" ]; then
+	echo "  › Disable iTunes helper"
+	disable_agent /Applications/iTunes.app/Contents/MacOS/iTunesHelper.app
+	echo "  › Prevent play button from launching iTunes"
+	unload_agent /System/Library/LaunchAgents/com.apple.rcd.plist
+fi
+
 ###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
 
 for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
     "Dock" "Finder" "Mail" "Messages" "Photos" "Safari" "SystemUIServer" \
-    "Terminal" "Tweetbot" "iCal"; do
+    "Terminal" "iTerm" "Transmission"; do
     killall "${app}" &> /dev/null
 done
 
